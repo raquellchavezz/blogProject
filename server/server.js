@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 // create the get request for students in the endpoint '/api/blogPosts'
-app.get("/api/blog", async (req, res) => {
+app.get("/api/blogPosts", async (req, res) => {
   try {
     const { rows: blogPosts } = await db.query("SELECT * FROM blog_posts");
     res.send(blogPosts);
@@ -25,7 +25,7 @@ app.get("/api/blog", async (req, res) => {
 });
 
 // create the POST request
-app.post("/api/blog", async (req, res) => {
+app.post("/api/addpost", async (req, res) => {
   try {
     const newBlogPost = {
       id_post: req.body.id_post,
@@ -37,8 +37,13 @@ app.post("/api/blog", async (req, res) => {
     };
     //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
     const result = await db.query(
-      "INSERT INTO students(firstname, lastname, is_current) VALUES($1, $2, $3) RETURNING *",
-      [newStudent.firstname, newStudent.lastname, newStudent.iscurrent]
+      "INSERT INTO blog_posts(firstname, lastname, title, content) VALUES($1, $2, $3, $4) RETURNING *",
+      [
+        newBlogPost.firstname,
+        newBlogPost.lastname,
+        newBlogPost.title,
+        newBlogPost.content,
+      ]
     );
     console.log(result.rows[0]);
     res.json(result.rows[0]);
