@@ -4,8 +4,6 @@ require("dotenv").config();
 // const path = require("path");
 const db = require("./db/db-connection.js");
 
-//I will need to update thisq
-
 const app = express();
 const PORT = process.env.PORT || 8080;
 app.use(cors());
@@ -16,23 +14,26 @@ app.get("/", (req, res) => {
   res.json({ message: "Hola, from My template ExpressJS with React-Vite" });
 });
 
-// create the get request for students in the endpoint '/api/students'
-app.get("/api/students", async (req, res) => {
+// create the get request for students in the endpoint '/api/blogPosts'
+app.get("/api/blog", async (req, res) => {
   try {
-    const { rows: students } = await db.query("SELECT * FROM students");
-    res.send(students);
+    const { rows: blogPosts } = await db.query("SELECT * FROM blog_posts");
+    res.send(blogPosts);
   } catch (e) {
     return res.status(400).json({ e });
   }
 });
 
 // create the POST request
-app.post("/api/students", async (req, res) => {
+app.post("/api/blog", async (req, res) => {
   try {
-    const newStudent = {
+    const newBlogPost = {
+      id_post: req.body.id_post,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
-      iscurrent: req.body.iscurrent,
+      title: req.body.lastname,
+      date: req.body.date,
+      content: req.body.content,
     };
     //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
     const result = await db.query(
@@ -48,7 +49,7 @@ app.post("/api/students", async (req, res) => {
 });
 
 // delete request for students
-app.delete("/api/students/:studentId", async (req, res) => {
+app.delete("/api/students/:blogPostId", async (req, res) => {
   try {
     const studentId = req.params.studentId;
     await db.query("DELETE FROM students WHERE id=$1", [studentId]);

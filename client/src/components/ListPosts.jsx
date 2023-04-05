@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import * as ioicons from 'react-icons/io5'
 import MyForm from './Form';
-import Student from './Student';
+import User from './Post';
 
-const ListBlogPosts = (props) => {
+const ListBlogPosts = () => {
+    const [blogPosts, setBlogPosts] = useState([]); // array of objs of the blog posts i have 
+    // const [currentPostId, setCurrentPostId] = useState("");
+    const [editingBlogPost,setEditingBlogPost] = useState(null);
+
     const loadBlogPosts = () => {
         // A function to fetch the list of students that will be load anytime that list change
-        fetch("http://localhost:8080/api/blogposts")
+        fetch("http://localhost:8080/api/blogPosts")
             .then((response) => response.json())
-            .then((students) => {
+            .then((blogPosts) => {
                 setBlogPosts(blogPosts);
             });
     }
@@ -23,30 +27,30 @@ const ListBlogPosts = (props) => {
     }
 
 
-    //A function to control the update in the parent (student component)
-    // const updateBlogPost = (savedBlogPost) => {
-    //     // console.log("Line 29 savedStudent", savedStudent);
-    //     // This function should update the whole list of students - 
-    //     loadBlogPosts();
-    // }
+    // A function to control the update in the parent (student component)
+    const updateBlogPost = (savedBlogPost) => {
+        // console.log("Line 29 savedStudent", savedStudent);
+        // This function should update the whole list of students - 
+        loadBlogPosts();
+    }
 
     //A function to handle the Delete funtionality
-    const onDelete = (student) => {
+    const onDelete = (post) => {
         //console.log(student, "delete method")
-        return fetch(`http://localhost:8080/api/students/${student.id}`, {
+        return fetch(`http://localhost:8080/api/blogposts/${blogpost.id}`, {
             method: "DELETE"
         }).then((response) => {
             //console.log(response);
             if (response.ok) {
-                loadStudents();
+                loadBlogPosts();
             }
         })
     }
 
     //A function to handle the Update functionality
-    const onUpdate = (toUpdateStudent) => {
+    const onUpdate = (toUpdateBlogPost) => {
         //console.log(toUpdateStudent);
-        setEditingStudent(toUpdateStudent);
+        setEditingBlogPost(toUpdateBlogPost);
 
     }
 
@@ -57,15 +61,14 @@ const ListBlogPosts = (props) => {
         <div className="list-students">
             <h2>Techtonica Participants </h2>
             <ul>
-                {students.map((student) => {
-                    return <li key={student.id}> <Student student={student} toDelete={onDelete} toUpdate={onUpdate} /></li>
+                {blogPosts.map((blogPost) => {
+                    return <li key={blogPost.id}> <Post blogPost={post} toDelete={onDelete} toUpdate={onUpdate} /></li>
                 })}
             </ul>
         </div>
-        <MyForm key={editingStudent ? editingStudent.id : null} onSaveStudent={onSaveStudent} editingStudent={editingStudent} onUpdateStudent={updateStudent} />
+        <MyForm key={editingBlogPost ? editingBlogPost.id : null} onSaveBlogPost={onSaveBlogPost} editingBlogPost={editingBlogPost} onUpdate={updateBlogPost} />
         </div>
     );
 }
 
-
-export default ListStudents
+export default ListBlogPosts;
