@@ -1,43 +1,52 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Form } from "react-bootstrap"
 
-const MyForm = ({ onBlogPost, editingBlogPost, onUpdateBlogPost }) => {
+const MyForm = ({ onSaveBlogPost, editingBlogPost, onUpdateBlogPost }) => { //passing in props (the data) here from the parent which is listPosts 
+     
+
 
     // This is the original State with not initial student 
     const [blogPost, setBlogPost] = useState(editingBlogPost || {
+        firstname:"",
+        lastname:"",
         title: "",
-        author: "",
-        content: false
+        content: false,
     });
 
     //create functions that handle the event of the user typing into the form
-    const handleAuhtorChange = (event) => {
-        const author = event.target.value;
-        setBlogPost((blogPost) => ({ ...setBlogPost, author }));
+    const handleFirstnameChange = (event) => {
+        const firstname = event.target.value;
+        setBlogPost((blogPost) => ({ ...blogPost, firstname }));
 
     };
 
     const handleLastnameChange = (event) => {
         const lastname = event.target.value;
-        setStudent((student) => ({ ...student, lastname }));
+        setBlogPost((blogPost) => ({ ...blogPost, lastname }));
     };
 
-    const handleCheckChange = (event) => {
-        const is_current = event.target.checked;
-        //console.log(iscurrent);
-        setStudent((student) => ({ ...student, is_current }));
+
+    const handleTitleChange = (event) => {
+        const title = event.target.value;
+        setBlogPost((blogPost) => ({ ...blogPost, title }));
+    };
+
+    const handleContentChange = (event) => {
+        const content = event.target.value;
+        //console.log(content);
+        setBlogPost((blogPost) => ({ ...blogPost, content }));
     };
 
     const clearForm = () => {
-        setStudent({ firstname: "", lastname: "", is_current: false })
+        setBlogPost({ firstname: "", lastname: "", title:"", content: false })
     }
 
     //A function to handle the post request
-    const postStudent = (newStudent) => {
-        return fetch("http://localhost:8080/api/students", {
+    const postBlogPost = (newBlogPost) => {
+        return fetch("http://localhost:8080/api/addpost", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newStudent),
+            body: JSON.stringify(newBlogPost),
         })
             .then((response) => {
                 return response.json();
@@ -45,24 +54,24 @@ const MyForm = ({ onBlogPost, editingBlogPost, onUpdateBlogPost }) => {
             .then((data) => {
                 //console.log("From the post ", data);
                 //I'm sending data to the List of Students (the parent) for updating the list
-                onSaveStudent(data);
+                onSaveBlogPost(data);
                 //this line just for cleaning the form
                 clearForm();
             });
     };
 
     //A function to handle the post request
-    const putStudent = (toEditStudent) => {
-        return fetch(`http://localhost:8080/api/students/${toEditStudent.id}`, {
+    const putBlogPost = (toEditBlogPost) => {
+        return fetch(`http://localhost:8080/api/students/${toEditBlogPost.id_post}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(toEditStudent),
+            body: JSON.stringify(toEditBlogPost),
         })
             .then((response) => {
                 return response.json();
             })
             .then((data) => {
-                onUpdateStudent(data);
+                onUpdateBlogPost(data);
                 //this line just for cleaning the form
                 clearForm();
             });
@@ -72,10 +81,10 @@ const MyForm = ({ onBlogPost, editingBlogPost, onUpdateBlogPost }) => {
     //A function to handle the submit in both cases - Post and Put request!
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (student.id) {
-            putStudent(student);
+        if (blogPost.id_post) {
+            putBlogPost(blogPost);
         } else {
-            postStudent(student);
+            postBlogPost(blogPost.id_post);
         }
     };
 
@@ -88,8 +97,8 @@ const MyForm = ({ onBlogPost, editingBlogPost, onUpdateBlogPost }) => {
                     id="add-user-name"
                     placeholder="First Name"
                     required
-                    value={student.firstname}
-                    onChange={handleNameChange}
+                    value={blogPost.firstname}
+                    onChange={handleFirstnameChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -99,24 +108,46 @@ const MyForm = ({ onBlogPost, editingBlogPost, onUpdateBlogPost }) => {
                     id="add-user-lastname"
                     placeholder="Last Name"
                     required
-                    value={student.lastname}
+                    value={blogPost.lastname}
                     onChange={handleLastnameChange}
                 />
             </Form.Group>
-            <Form.Check
-                type={'checkbox'}
-                id={`isCurrent`}
-                checked={student.is_current}
-                onChange={handleCheckChange}
-                label={`Are they in the current program?`}
-            />
+
+
             <Form.Group>
-            <Button type="submit" variant="outline-success">{student.id ? "Edit Student" : "Add Student"}</Button>
-            {student.id ? <Button type="button" variant="outline-warning" onClick={clearForm}>Cancel</Button> : null}
+                <Form.Label>Title</Form.Label>
+                <input
+                    type="text"
+                    id="add-user-title"
+                    placeholder="name of your article here"
+                    required
+                    value={blogPost.title}
+                    onChange={handleTitleChange}
+                />
+            </Form.Group>
+
+
+            <Form.Group>
+                <Form.Label>Content</Form.Label>
+                <input
+                    type="text"
+                    id="add-user-content"
+                    placeholder="add content here"
+                    required
+                    value={blogPost.content}
+                    onChange={handleContentChange}
+                />
+            </Form.Group>
+
+
+           
+            <Form.Group>
+            <Button type="submit" variant="outline-success">{blogPost.id_content ? "Edit post" : "Add post"}</Button>
+            {blogPost.id_content ? <Button type="button" variant="outline-warning" onClick={clearForm}>Cancel</Button> : null}
             </Form.Group>
         </Form>
     );
 };
 
 
-export default MyForm
+export default MyForm;

@@ -37,7 +37,7 @@ app.post("/api/addpost", async (req, res) => {
     };
     //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
     const result = await db.query(
-      "INSERT INTO blog_posts(firstname, lastname, title, content) VALUES($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO blog_posts(firstname,lastname, title, content) VALUES($1, $2, $3, $4) RETURNING *",
       [
         newBlogPost.firstname,
         newBlogPost.lastname,

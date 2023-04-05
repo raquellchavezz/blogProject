@@ -5,20 +5,20 @@ import * as ioicons from 'react-icons/io5'
 
 const Post = ({blogPost, toUpdate, toDelete}) => {
 
-    const onUpdate = (toUpdateStudent) => {
-        toUpdate(toUpdateStudent)
+    const onUpdate = (toUpdateBlogPost) => {
+        toUpdate(toUpdateBlogPost)
     }
 
-    const onDelete = (toDeleteStudent) => {
-        toDelete(toDeleteStudent)
+    const onDelete = (toDeleteBlogPost) => {
+        toDelete(toDeleteBlogPost)
     }
 
     return (
         <Card>
             <Card.Body>
-            <Card.Title>{blogPost.title} {blogPost.date}</Card.Title>
-            <Button variant="outline-danger" onClick={()=>{onDelete(student)}} style={{padding: '0.6em', marginRight:'0.9em'}}><ioicons.IoTrash/></Button>
-            <Button variant="outline-info" onClick={()=>{onUpdate(student)}} style={{padding: '0.6em'}}> <ioicons.IoSync/></Button>
+            <Card.Title>{blogPost.firstname} {blogPost.lastname}{blogPost.title} {blogPost.date} {blogPost.content}</Card.Title>
+            <Button variant="outline-danger" onClick={()=>{onDelete(blogPost)}} style={{padding: '0.6em', marginRight:'0.9em'}}><ioicons.IoTrash/></Button>
+            <Button variant="outline-info" onClick={()=>{onUpdate(blogPost)}} style={{padding: '0.6em'}}> <ioicons.IoSync/></Button>
             </Card.Body>
         </Card>
     )
