@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Form } from "react-bootstrap"
 
-const MyForm = ({ onSaveBlogPost, editingBlogPost, onUpdateBlogPost }) => { //passing in props (the data) here from the parent which is listPosts 
-     
+const MyForm = ({ onSaveBlogPost, editingBlogPost, updateBlogPost }) => { //passing in props (the data) here from the parent which is listPosts 
+
 
 
     // This is the original State with not initial student 
@@ -10,7 +10,7 @@ const MyForm = ({ onSaveBlogPost, editingBlogPost, onUpdateBlogPost }) => { //pa
         firstname:"",
         lastname:"",
         title: "",
-        content: false,
+        content: "",
     });
 
     //create functions that handle the event of the user typing into the form
@@ -38,7 +38,7 @@ const MyForm = ({ onSaveBlogPost, editingBlogPost, onUpdateBlogPost }) => { //pa
     };
 
     const clearForm = () => {
-        setBlogPost({ firstname: "", lastname: "", title:"", content: false })
+        setBlogPost({ firstname: "", lastname: "", title:"", content: ""})
     }
 
     //A function to handle the post request
@@ -62,7 +62,7 @@ const MyForm = ({ onSaveBlogPost, editingBlogPost, onUpdateBlogPost }) => { //pa
 
     //A function to handle the post request
     const putBlogPost = (toEditBlogPost) => {
-        return fetch(`http://localhost:8080/api/students/${toEditBlogPost.id_post}`, {
+        return fetch(`http://localhost:8080/api/updateblog/${toEditBlogPost.id_post}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(toEditBlogPost),
@@ -71,7 +71,7 @@ const MyForm = ({ onSaveBlogPost, editingBlogPost, onUpdateBlogPost }) => { //pa
                 return response.json();
             })
             .then((data) => {
-                onUpdateBlogPost(data);
+                updateBlogPost(data);
                 //this line just for cleaning the form
                 clearForm();
             });
@@ -84,7 +84,7 @@ const MyForm = ({ onSaveBlogPost, editingBlogPost, onUpdateBlogPost }) => { //pa
         if (blogPost.id_post) {
             putBlogPost(blogPost);
         } else {
-            postBlogPost(blogPost.id_post);
+            postBlogPost(blogPost);
         }
     };
 
@@ -93,6 +93,7 @@ const MyForm = ({ onSaveBlogPost, editingBlogPost, onUpdateBlogPost }) => { //pa
             <Form.Group>
                 <Form.Label>First Name</Form.Label>
                 <input
+                    
                     type="text"
                     id="add-user-name"
                     placeholder="First Name"

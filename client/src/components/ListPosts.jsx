@@ -12,8 +12,8 @@ const ListBlogPosts = () => {
         // A function to fetch the list of students that will be load anytime that list change
         fetch("http://localhost:8080/api/blogPosts")
             .then((response) => response.json())
-            .then((blogPosts) => {
-                setBlogPosts(blogPosts);
+            .then((data) => {
+                setBlogPosts(data);
             });
     }
 
@@ -36,8 +36,9 @@ const ListBlogPosts = () => {
 
     //A function to handle the Delete funtionality
     const onDelete = (blogPost) => {
-        //console.log(student, "delete method")
-        return fetch(`http://localhost:8080/api/blogposts/${blogpost.id}`, {
+        //console.log(blogPost, "delete method")
+        console.log(blogPost)
+        return fetch(`http://localhost:8080/api/deletepost/${blogPost.id_post}`, {
             method: "DELETE"
         }).then((response) => {
             //console.log(response);
@@ -62,11 +63,11 @@ const ListBlogPosts = () => {
             <h2>Blog Posts </h2>
             <ul>
                 {blogPosts.map((blogPost) => {
-                    return <li key={blogPost.id}> <Post blogPost={blogPost} toDelete={onDelete} toUpdate={onUpdate} /></li>
+                    return <li key={blogPost.id_post}> <Post blogPost={blogPost} toDelete={onDelete} toUpdate={onUpdate} /></li>
                 })}
             </ul>
         </div>
-        <MyForm key={editingBlogPost ? editingBlogPost.id : null} onSaveBlogPost={onSaveBlogPost} editingBlogPost={editingBlogPost} onUpdate={updateBlogPost} />
+        <MyForm key={editingBlogPost ? editingBlogPost.id : null} onSaveBlogPost={onSaveBlogPost} editingBlogPost={editingBlogPost} updateBlogPost={updateBlogPost} />
         </div>
     );
 }
