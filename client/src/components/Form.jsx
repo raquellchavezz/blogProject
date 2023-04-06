@@ -143,8 +143,8 @@ const MyForm = ({ onSaveBlogPost, editingBlogPost, updateBlogPost }) => { //pass
 
            
             <Form.Group>
-            <Button type="submit" variant="outline-success">{blogPost.id_content ? "Edit post" : "Add post"}</Button>
-            {blogPost.id_content ? <Button type="button" variant="outline-warning" onClick={clearForm}>Cancel</Button> : null}
+            <Button type="submit" variant="outline-success">{blogPost.id_post ? "Edit post" : "Add post"}</Button>
+            {blogPost.id_post ? <Button type="button" variant="outline-warning" onClick={clearForm}>Cancel</Button> : null}
             </Form.Group>
         </Form>
     );
