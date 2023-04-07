@@ -3,6 +3,8 @@ import React from "react";
 // import Button from 'react-bootstrap/Button';
 import { Card, Button, Icon, Image } from "semantic-ui-react";
 
+import * as icons from "react-icons/io5";
+
 const Post = ({ blogPost, toUpdate, toDelete }) => {
   const onUpdate = (toUpdateBlogPost) => {
     toUpdate(toUpdateBlogPost);
@@ -14,14 +16,7 @@ const Post = ({ blogPost, toUpdate, toDelete }) => {
 
   return (
     <Card fluid>
-      <Image
-        className="blogPostImg"
-        alt="image of tea"
-        style={{ width: "400px", height: "auto" }}
-        src={blogPost.image_url}
-        wrapped
-        ui={false}
-      />
+      <Image src={blogPost.image_url} wrapped ui={false} />
       <Card.Content>
         <Card.Header>
           {" "}
