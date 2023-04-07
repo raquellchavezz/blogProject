@@ -2,6 +2,8 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Logo from "../assets/BlueTechtonicaWord.png";
+import { Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function MyNavBar(props) {
   return (
@@ -16,7 +18,17 @@ function MyNavBar(props) {
               alt="React Bootstrap logo"
             />
           </Navbar.Brand>
-          <Nav.Link>Your Link</Nav.Link>
+
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
+
+          <Link to="/aboutme" className="nav-link">
+            About Me
+          </Link>
+          <Link to="/blogs" className="nav-link">
+            Blogs
+          </Link>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>

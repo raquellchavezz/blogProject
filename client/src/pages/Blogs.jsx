@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import * as ioicons from "react-icons/io5";
-import MyForm from "./Form"; //this is the child of listPosts
-import Post from "./Post"; //this is the child of listPosts
+import MyForm from "../components/Form"; //this is the child of listPosts
+import Post from "../components/Post"; //this is the child of listPosts
 
-const ListBlogPosts = () => {
+const Blogs = () => {
   const [blogPosts, setBlogPosts] = useState([]); // array of objs of the blog posts i have
   // const [currentPostId, setCurrentPostId] = useState("");
   const [editingBlogPost, setEditingBlogPost] = useState(null);
@@ -83,4 +83,4 @@ const ListBlogPosts = () => {
   );
 };
 
-export default ListBlogPosts;
+export default Blogs;
