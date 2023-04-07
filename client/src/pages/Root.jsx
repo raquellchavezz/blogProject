@@ -11,7 +11,7 @@ import MyNavBar from "../components/Navbar";
 //is going to take the place of outlet
 //outlet is placeholder for whatever is going to be on
 //the actual page
-//how app is displayed
+
 export default function Root() {
   return (
     <div className="App">

@@ -3,8 +3,6 @@ import React from "react";
 // import Button from 'react-bootstrap/Button';
 import { Card, Button, Icon, Image } from "semantic-ui-react";
 
-import * as icons from "react-icons/io5";
-
 const Post = ({ blogPost, toUpdate, toDelete }) => {
   const onUpdate = (toUpdateBlogPost) => {
     toUpdate(toUpdateBlogPost);
@@ -23,7 +21,6 @@ const Post = ({ blogPost, toUpdate, toDelete }) => {
           {/*add some divs maybe paragraphs */}
           {blogPost.firstname} {blogPost.lastname} {blogPost.title}{" "}
           {blogPost.date}
-          <a href={"/api/" + blogPost.id_post}> Click me for more details </a>
         </Card.Header>
         <Button
           onClick={() => {

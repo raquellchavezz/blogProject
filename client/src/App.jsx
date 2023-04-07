@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AboutMe from "./pages/aboutme";
 import Root from "./pages/root";
 import Blogs from "./pages/Blogs";
+import "semantic-ui-css/semantic.min.css";
 //Browser router which will actually help connect to the browser
 //routes component which is going to be the parent for all our routes
 //route, used to set up a single page
