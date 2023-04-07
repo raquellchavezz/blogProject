@@ -1,30 +1,50 @@
-import React from 'react';
+import React from "react";
 // import Card from 'react-bootstrap/Card';
 // import Button from 'react-bootstrap/Button';
-import {Card, Button, Icon} from 'semantic-ui-react';
+import { Card, Button, Icon, Image } from "semantic-ui-react";
 
-import * as ioicons from 'react-icons/io5'
+import * as icons from "react-icons/io5";
 
-const Post = ({blogPost, toUpdate, toDelete}) => {
+const Post = ({ blogPost, toUpdate, toDelete }) => {
+  const onUpdate = (toUpdateBlogPost) => {
+    toUpdate(toUpdateBlogPost);
+  };
 
-    const onUpdate = (toUpdateBlogPost) => {
-        toUpdate(toUpdateBlogPost)
-    }
+  const onDelete = (toDeleteBlogPost) => {
+    toDelete(toDeleteBlogPost);
+  };
 
-    const onDelete = (toDeleteBlogPost) => {
-        toDelete(toDeleteBlogPost)
-    }
-
-    return (
-        <Card fluid>
-            <Card.Content>
-            <Card.Header>{blogPost.firstname} {blogPost.lastname} {blogPost.title} {blogPost.date} {blogPost.content}</Card.Header>
-            <Button onClick={()=>{onDelete(blogPost)}} style={{padding: '0.6em', marginRight:'0.9em'}}><Icon name='trash'/></Button>
-            <Button onClick={()=>{onUpdate(blogPost)}} style={{padding: '0.6em'}}> <Icon name='edit'/></Button>
-            </Card.Content>
-        </Card>
-    )
-
-}
+  return (
+    <Card fluid>
+      <Image src={blogPost.image_url} wrapped ui={false} />
+      <Card.Content>
+        <Card.Header>
+          {" "}
+          {/*add some divs maybe paragraphs */}
+          {blogPost.firstname} {blogPost.lastname} {blogPost.title}{" "}
+          {blogPost.date}
+          <a href={"/api/" + blogPost.id_post}> Click me for more details </a>
+        </Card.Header>
+        <Button
+          onClick={() => {
+            onDelete(blogPost);
+          }}
+          style={{ padding: "0.6em", marginRight: "0.9em" }}
+        >
+          <Icon name="trash" />
+        </Button>
+        <Button
+          onClick={() => {
+            onUpdate(blogPost);
+          }}
+          style={{ padding: "0.6em" }}
+        >
+          {" "}
+          <Icon name="edit" />
+        </Button>
+      </Card.Content>
+    </Card>
+  );
+};
 
 export default Post;
