@@ -14,7 +14,14 @@ const Post = ({ blogPost, toUpdate, toDelete }) => {
 
   return (
     <Card fluid>
-      <Image src={blogPost.image_url} wrapped ui={false} />
+      <Image
+        className="blogPostImg"
+        alt="image of tea"
+        style={{ width: "400px", height: "auto" }}
+        src={blogPost.image_url}
+        wrapped
+        ui={false}
+      />
       <Card.Content>
         <Card.Header>
           {" "}

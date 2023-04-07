@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AboutMe from "./pages/aboutme";
 import Root from "./pages/root";
 import Blogs from "./pages/Blogs";
-import "semantic-ui-css/semantic.min.css";
+import "semantic-ui-css/semantic.min.css"; //Check if you have imported the semantic-ui-css stylesheet in your project. You can do this by adding import 'semantic-ui-css/semantic.min.css'; to your index.js file or any other file that gets loaded first in your application.
 //Browser router which will actually help connect to the browser
 //routes component which is going to be the parent for all our routes
 //route, used to set up a single page
