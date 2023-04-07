@@ -3,6 +3,8 @@ import React from "react";
 // import Button from 'react-bootstrap/Button';
 import { Card, Button, Icon, Image } from "semantic-ui-react";
 
+import * as icons from "react-icons/io5";
+
 const Post = ({ blogPost, toUpdate, toDelete }) => {
   const onUpdate = (toUpdateBlogPost) => {
     toUpdate(toUpdateBlogPost);
@@ -19,13 +21,11 @@ const Post = ({ blogPost, toUpdate, toDelete }) => {
         <Card.Header>
           {" "}
           {/*add some divs maybe paragraphs */}
+          <div> {blogPost.title} </div>
           <div>
-            {blogPost.title} {new Date(blogPost.date).toLocaleDateString()}
+            {blogPost.firstname} {blogPost.lastname}
           </div>
-          <div>
-            By: {blogPost.firstname}
-            {blogPost.lastname}
-          </div>
+          <div>{new Date(blogPost.date).toLocaleDateString()}</div>
           <div>{blogPost.content}</div>
         </Card.Header>
         <Button
