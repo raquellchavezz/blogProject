@@ -1,10 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const path = require("path");
+// const path = require("path");
 const db = require("./db/db-connection.js");
 
-//I will need to update this
 const app = express();
 const PORT = process.env.PORT || 8080;
 app.use(cors());
@@ -15,28 +14,36 @@ app.get("/", (req, res) => {
   res.json({ message: "Hola, from My template ExpressJS with React-Vite" });
 });
 
-// create the get request for students in the endpoint '/api/students'
-app.get("/api/students", async (req, res) => {
+// create the get request for students in the endpoint '/api/blogPosts'
+app.get("/api/blogPosts", async (req, res) => {
   try {
-    const { rows: students } = await db.query("SELECT * FROM students");
-    res.send(students);
+    const { rows: blogPosts } = await db.query("SELECT * FROM blog_posts");
+    res.send(blogPosts);
   } catch (e) {
     return res.status(400).json({ e });
   }
 });
 
 // create the POST request
-app.post("/api/students", async (req, res) => {
+app.post("/api/addpost", async (req, res) => {
   try {
-    const newStudent = {
+    const newBlogPost = {
+      id_post: req.body.id_post,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
-      iscurrent: req.body.iscurrent,
+      title: req.body.lastname,
+      date: req.body.date,
+      content: req.body.content,
     };
     //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
     const result = await db.query(
-      "INSERT INTO students(firstname, lastname, is_current) VALUES($1, $2, $3) RETURNING *",
-      [newStudent.firstname, newStudent.lastname, newStudent.iscurrent]
+      "INSERT INTO blog_posts(firstname,lastname, title, content) VALUES($1, $2, $3, $4) RETURNING *",
+      [
+        newBlogPost.firstname,
+        newBlogPost.lastname,
+        newBlogPost.title,
+        newBlogPost.content,
+      ]
     );
     console.log(result.rows[0]);
     res.json(result.rows[0]);
@@ -47,7 +54,7 @@ app.post("/api/students", async (req, res) => {
 });
 
 // delete request for students
-app.delete("/api/students/:studentId", async (req, res) => {
+app.delete("/api/students/:blogPostId", async (req, res) => {
   try {
     const studentId = req.params.studentId;
     await db.query("DELETE FROM students WHERE id=$1", [studentId]);
